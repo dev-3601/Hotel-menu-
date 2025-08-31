@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Spoon - Luxury Dining Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 25%, #16213e 50%, #1a1a2e 75%, #0a0a0a 100%);
+            background-size: 400% 400%;
+            animation: bodyGradient 15s ease infinite;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        @keyframes bodyGradient {
+            0%, 100% { background-position: 0% 50%; }
+            25% { background-position: 100% 0%; }
+            50% { background-position: 100% 100%; }
+            75% { background-position: 0% 100%; }
+        }
+
+        .header {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ffd93d 25%, #6bcf7f 50%, #4ecdc4 75%, #45b7d1 100%);
+            background-size: 300% 300%;
+            animation: gradientShift 6s ease infinite;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 3s infinite;
+        }
+
+        .header::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            33% { background-position: 100% 0%; }
+            66% { background-position: 100% 100%; }
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .header h1 {
+            font-size: 4rem;
+            color: #fff;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.5);
+            margin-bottom: 0.5rem;
+            position: relative;
+            z-index: 3;
+            font-weight: bold;
+        }
+
+        .header p {
+            font-size: 1.4rem;
+            color: rgba(255,255,255,0.9);
+            font-style: italic;
+            position: relative;
+            z-index: 3;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 1.2rem 1.2rem 1.2rem 3.5rem;
+            font-size: 1.1rem;
+            border: 2px solid transparent;
+            border-radius: 50px;
+            background: linear-gradient(135deg, rgba(69, 183, 209, 0.2), rgba(75, 192, 192, 0.2));
+            color: #fff;
+            backdrop-filter: blur(15px);
+            transition: all 0.4s ease;
+            box-shadow: 0 8px 25px rgba(69, 183, 209, 0.2);
+        }
+
+        .search-box:focus {
+            outline: none;
+            border: 2px solid #45b7d1;
+            box-shadow: 0 0 30px rgba(69, 183, 209, 0.6);
+            background: linear-gradient(135deg, rgba(69, 183, 209, 0.3), rgba(75, 192, 192, 0.3));
+            transform: translateY(-2px);
+        }
+
+        .search-box::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 3rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #45b7d1;
+            font-size: 1.3rem;
+        }
+
+        .menu-container {
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .menu-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcf7f, #4ecdc4, #45b7d1);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientText 4s ease infinite;
+            margin-bottom: 2rem;
+            text-align: center;
+            position: relative;
+            font-weight: bold;
+        }
+
+        @keyframes gradientText {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 150px;
+            height: 3px;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcf7f, #4ecdc4, #45b7d1);
+            background-size: 200% 200%;
+            animation: gradientText 4s ease infinite;
+            margin: 1rem auto;
+            border-radius: 10px;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 1rem 0;
+        }
+
+        .menu-item {
+            background: linear-gradient(145deg, 
+                rgba(69, 183, 209, 0.1), 
+                rgba(75, 192, 192, 0.1), 
+                rgba(106, 207, 127, 0.1));
+            border-radius: 25px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            border: 2px solid rgba(69, 183, 209, 0.3);
+            backdrop-filter: blur(15px);
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(50px) scale(0.9);
+            animation: none;
+        }
+
+        .menu-item.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            animation: slideInUp 0.6s ease-out forwards;
+        }
+
+        @keyframes slideInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+            }
+            50% {
+                transform: translateY(-10px) scale(1.02);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .menu-item:hover {
+            transform: translateY(-15px) scale(1.03);
+            box-shadow: 0 25px 50px rgba(69, 183, 209, 0.4);
+            border-color: #45b7d1;
+        }
+
+        .menu-item.visible:hover {
+            transform: translateY(-15px) scale(1.03);
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #ffd93d, #6bcf7f, #4ecdc4, #45b7d1);
+            background-size: 200% 200%;
+            animation: gradientShift 6s ease infinite;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .menu-item:hover::before {
+            opacity: 1;
+        }
+
+        .item-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .menu-item:hover .item-image {
+            transform: scale(1.1);
+        }
+
+        .item-content {
+            padding: 1.5rem;
+        }
+
+        .item-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #fff;
+        }
+
+        .item-price {
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: bold;
+            text-align: right;
+        }
+
+        .item-description {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.8);
+            margin-top: 0.8rem;
+            line-height: 1.5;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 4rem;
+            color: rgba(255,255,255,0.7);
+            font-size: 1.3rem;
+        }
+
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcf7f, #4ecdc4, #45b7d1);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: float 8s ease-in-out infinite, gradientText 4s ease infinite;
+        }
+
+        .floating-element:nth-child(1) { top: 15%; left: 8%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 55%; right: 8%; animation-delay: 3s; }
+        .floating-element:nth-child(3) { bottom: 15%; left: 15%; animation-delay: 6s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+            25% { transform: translateY(-30px) rotate(90deg) scale(1.1); }
+            50% { transform: translateY(-15px) rotate(180deg) scale(0.9); }
+            75% { transform: translateY(-25px) rotate(270deg) scale(1.05); }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2.5rem; }
+            .menu-grid { 
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+            .search-container { padding: 0 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="floating-elements">
+        <i class="floating-element fas fa-utensils fa-3x"></i>
+        <i class="floating-element fas fa-wine-glass fa-2x"></i>
+        <i class="floating-element fas fa-star fa-2x"></i>
+    </div>
+
+    <header class="header">
+        <h1><i class="fas fa-crown"></i> Golden Spoon</h1>
+        <p> Dining Experience Portal</p>
+    </header>
+
+    <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" class="search-box" id="searchInput" placeholder="Search for delicious dishes...">
+    </div>
+
+    <div class="menu-container" id="menuContainer">
+        <div class="menu-section">
+            <h2 class="section-title">Our Exquisite Menu</h2>
+            <div class="menu-grid" id="menuGrid">
+                <!-- Menu items will be populated by JavaScript -->
+            </div>
+        </div>
+        <div class="no-results" id="noResults" style="display: none;">
+            <i class="fas fa-search fa-3x"></i>
+            <p>No dishes found matching your search.</p>
+        </div>
+    </div>
+
+    <script>
+        const menuItems = [
+            { name: "Sambar", price: 90, image: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=400&h=300&fit=crop&q=80", description: "Traditional South Indian lentil curry with aromatic spices" },
+            { name: "Vada", price: 40, image: "https://images.unsplash.com/photo-1630383249896-424e482df921?w=400&h=300&fit=crop&q=80", description: "Crispy golden fried lentil donuts, perfectly spiced" },
+            { name: "Idli", price: 10, image: "https://images.unsplash.com/photo-1668236543090-82eba5fcd41e?w=400&h=300&fit=crop&q=80", description: "Soft and fluffy steamed rice cakes, light and healthy" },
+            { name: "Upma", price: 15, image: "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&h=300&fit=crop&q=80", description: "Savory semolina porridge with vegetables and spices" },
+            { name: "Rice Bath", price: 40, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop&q=80", description: "Aromatic rice mixed with traditional South Indian flavors" },
+            { name: "Poorl Rasam", price: 40, image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=300&fit=crop&q=80", description: "Tangy tamarind soup with crispy puris" },
+            { name: "Masala Dosa", price: 50, image: "https://images.unsplash.com/photo-1694159670627-30dd5a4b2055?w=400&h=300&fit=crop&q=80", description: "Crispy crepe filled with spiced potato curry" },
+            { name: "Set Dosa", price: 40, image: "https://images.unsplash.com/photo-1694159670627-30dd5a4b2055?w=400&h=300&fit=crop&q=80", description: "Soft and thick set of mini dosas, perfect for breakfast" },
+            { name: "Onion Dosa", price: 60, image: "https://images.unsplash.com/photo-1694159670627-30dd5a4b2055?w=400&h=300&fit=crop&q=80", description: "Crispy dosa topped with fresh onions and spices" },
+            { name: "Kal Dosa", price: 40, image: "https://images.unsplash.com/photo-1694159670627-30dd5a4b2055?w=400&h=300&fit=crop&q=80", description: "Traditional thick dosa with authentic flavors" },
+            { name: "Medu Vada", price: 50, image: "https://images.unsplash.com/photo-1630383249896-424e482df921?w=400&h=300&fit=crop&q=80", description: "Crispy fried lentil donuts with chutney and sambar" },
+            { name: "Amma Sambar", price: 40, image: "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=400&h=300&fit=crop&q=80", description: "Home-style sambar with traditional grandmother's recipe" },
+            { name: "Parotta Curry", price: 40, image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=300&fit=crop&q=80", description: "Flaky layered bread with rich curry gravy" },
+            { name: "Palotta", price: 30, image: "https://images.unsplash.com/photo-1585937421612-70a008356fbe?w=400&h=300&fit=crop&q=80", description: "Traditional layered flatbread, soft and fluffy" },
+            { name: "Chapathi", price: 30, image: "https://images.unsplash.com/photo-1574653853027-5744c4562f4e?w=400&h=300&fit=crop&q=80", description: "Soft whole wheat flatbread, healthy and nutritious" },
+            { name: "Fried Rice", price: 50, image: "https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&h=300&fit=crop&q=80", description: "Wok-fried rice with vegetables and aromatic spices" },
+            { name: "Noodles", price: 50, image: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=400&h=300&fit=crop&q=80", description: "Stir-fried noodles with fresh vegetables" },
+            { name: "Egg Rice", price: 60, image: "https://images.unsplash.com/photo-1512058564366-18510be2db19?w=400&h=300&fit=crop&q=80", description: "Fragrant rice cooked with scrambled eggs and spices" },
+            { name: "Egg Noodles", price: 60, image: "https://images.unsplash.com/photo-1558030006-450675393462?w=400&h=300&fit=crop&q=80", description: "Delicious noodles tossed with eggs and vegetables" },
+            { name: "Jeera Rice", price: 30, image: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop&q=80", description: "Aromatic basmati rice flavored with cumin" },
+            { name: "Cmobi", price: 50, image: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=400&h=300&fit=crop&q=80", description: "Traditional South Indian specialty dish" },
+            { name: "Cmobi Pepper Dry", price: 60, image: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=400&h=300&fit=crop&q=80", description: "Spicy dry preparation with black pepper" },
+            { name: "Coffee/Tea", price: 10, image: "https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=300&fit=crop&q=80", description: "Freshly brewed coffee or tea to complete your meal" },
+            { name: "Badam Milk", price: 10, image: "https://images.unsplash.com/photo-1553909489-cd47e0ef937f?w=400&h=300&fit=crop&q=80", description: "Rich and creamy almond milk drink" },
+            { name: "Water", price: 20, image: "https://images.unsplash.com/photo-1550831106-0c631609c364?w=400&h=300&fit=crop&q=80", description: "Pure and refreshing drinking water" },
+            { name: "Pamel Charges", price: 10, image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=300&fit=crop&q=80", description: "Service charges for premium dining experience" },
+            { name: "Baby Corn Manchurian", price: 70, image: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=400&h=300&fit=crop&q=80", description: "Crispy baby corn in tangy Manchurian sauce" },
+            { name: "Paneer Manchurian", price: 80, image: "https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=400&h=300&fit=crop&q=80", description: "Soft paneer cubes in spicy Manchurian gravy" },
+            { name: "Mushroom Manchurian", price: 80, image: "https://images.unsplash.com/photo-1578564163010-0c3f3e5ff1a1?w=400&h=300&fit=crop&q=80", description: "Fresh mushrooms in aromatic Manchurian sauce" },
+            { name: "Paneer Rice", price: 60, image: "https://images.unsplash.com/photo-1596560548464-f010549b84d7?w=400&h=300&fit=crop&q=80", description: "Flavorful rice cooked with tender paneer pieces" },
+            { name: "Chilli Basil", price: 20, image: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?w=400&h=300&fit=crop&q=80", description: "Spicy and aromatic chilli basil preparation" },
+            { name: "Madras Vada", price: 10, image: "https://images.unsplash.com/photo-1630383249896-424e482df921?w=400&h=300&fit=crop&q=80", description: "Traditional Madras-style vada with authentic taste" }
+        ];
+
+        let filteredItems = [...menuItems];
+
+        function renderMenuItems(items) {
+            const menuGrid = document.getElementById('menuGrid');
+            const noResults = document.getElementById('noResults');
+            
+            if (items.length === 0) {
+                menuGrid.style.display = 'none';
+                noResults.style.display = 'block';
+                return;
+            }
+            
+            menuGrid.style.display = 'grid';
+            noResults.style.display = 'none';
+            
+            menuGrid.innerHTML = items.map((item, index) => `
+                <div class="menu-item" data-index="${index}">
+                    <img src="${item.image}" alt="${item.name}" class="item-image" onerror="this.src='https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?w=400&h=300&fit=crop'">
+                    <div class="item-content">
+                        <div class="item-name">${item.name}</div>
+                        <div class="item-price">₹${item.price}</div>
+                        <div class="item-description">${item.description}</div>
+                    </div>
+                </div>
+            `).join('');
+            
+            // Trigger smooth scroll animations
+            setTimeout(() => {
+                animateMenuItems();
+            }, 100);
+        }
+
+        function searchItems(query) {
+            if (!query.trim()) {
+                filteredItems = [...menuItems];
+            } else {
+                filteredItems = menuItems.filter(item =>
+                    item.name.toLowerCase().includes(query.toLowerCase()) ||
+                    item.description.toLowerCase().includes(query.toLowerCase())
+                );
+            }
+            renderMenuItems(filteredItems);
+        }
+
+        function animateMenuItems() {
+            const menuItems = document.querySelectorAll('.menu-item');
+            
+            // Create intersection observer for smooth scroll animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        // Add staggered delay for wave effect
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                        }, index * 100);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            // Observe all menu items
+            menuItems.forEach((item) => {
+                observer.observe(item);
+            });
+
+            // Fallback for immediate visibility if no scroll needed
+            setTimeout(() => {
+                menuItems.forEach((item, index) => {
+                    if (!item.classList.contains('visible')) {
+                        setTimeout(() => {
+                            item.classList.add('visible');
+                        }, index * 100);
+                    }
+                });
+            }, 500);
+        }
+
+        // Enhanced scroll performance
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) {
+                clearTimeout(scrollTimeout);
+            }
+            scrollTimeout = setTimeout(() => {
+                // Additional smooth scroll logic can go here
+            }, 100);
+        }, { passive: true });
+
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            searchItems(e.target.value);
+        });
+
+        // Initial render
+        renderMenuItems(menuItems);
+    </script>
+</body>
+</html>
